@@ -8,6 +8,9 @@ const passport = require('./config/ppConfig')
 const flash = require('connect-flash');
 
 
+//require  the auth for middleware
+const isLoggedIn = require('./middleware/isLoggedIn')
+
 app.set('view engine', 'ejs');
 
 app.use(require('morgan')('dev'));
@@ -32,7 +35,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-  res.render('index', { alert: req.flash()});
+  res.render('index', { alerts: res.locals.alerts });
 });
 
 app.get('/profile', (req, res) => {
